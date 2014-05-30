@@ -5,7 +5,7 @@
         <Name>ngsi-updater</Name>
         <DisplayName>NGSI Updater</DisplayName>
         <Author>aarranz</Author>
-        <Version>0.3</Version>
+        <Version>2.99</Version>
         <Mail>aarranz@conwet.com</Mail>
         <Description>Generic widget that let you browse and update the NGSI entities hosted in a particular Orion Context Broker instance. This widget is meant to be useful for developing and its target is not end user.</Description>
         <ImageURI>images/catalogue.png</ImageURI>
