@@ -10,7 +10,7 @@
         <Description>Generic widget that let you browse and update the NGSI entities hosted in a particular Orion Context Broker instance. This widget is meant to be useful for developing and its target is not end user.</Description>
         <ImageURI>images/catalogue.png</ImageURI>
         <iPhoneImageURI>images/catalogue.png</iPhoneImageURI>
-        <WikiURI></WikiURI>
+        <WikiURI>https://github.com/wirecloud-fiware/ngsi-updater</WikiURI>
 
         <Requirements>
             <Feature name="NGSI"/>
