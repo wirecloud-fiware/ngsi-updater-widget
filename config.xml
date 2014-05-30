@@ -19,7 +19,7 @@
     </Catalog.ResourceDescription>
 
     <Platform.Preferences>
-        <Preference name="ngsi_server" type="text" description="NGSI Server where the lamp post info is located" label="NGSI Server" default="http://orion.lab.fi-ware.eu:1026/" />
+        <Preference name="ngsi_server" type="text" description="NGSI Server where the lamp post info is located" label="NGSI Server" default="http://orion.lab.fi-ware.eu:10026/" />
         <Preference name="entity_id_pattern" type="text" description="Id parttern of the entities to monitorize on the Orion Context Broker server" label="Entity Id Filter" default=".*" />
     </Platform.Preferences>
 
