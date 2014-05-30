@@ -5,9 +5,9 @@
         <Name>ngsi-updater</Name>
         <DisplayName>NGSI Updater</DisplayName>
         <Author>aarranz</Author>
-        <Version>0.2</Version>
+        <Version>0.3</Version>
         <Mail>aarranz@conwet.com</Mail>
-        <Description>Update NGSI entities</Description>
+        <Description>Generic widget that let you browse and update the NGSI entities hosted in a particular Orion Context Broker instance. This widget is meant to be useful for developing and its target is not end user.</Description>
         <ImageURI>images/catalogue.png</ImageURI>
         <iPhoneImageURI>images/catalogue.png</iPhoneImageURI>
         <WikiURI></WikiURI>
@@ -19,7 +19,8 @@
     </Catalog.ResourceDescription>
 
     <Platform.Preferences>
-        <Preference name="ngsi_server" type="text" description="NGSI Server where the lamp post info is located" label="NGSI Server" default="http://130.206.82.140:1026/" />
+        <Preference name="ngsi_server" type="text" description="NGSI Server where the lamp post info is located" label="NGSI Server" default="http://orion.lab.fi-ware.eu:1026/" />
+        <Preference name="entity_id_pattern" type="text" description="Id parttern of the entities to monitorize on the Orion Context Broker server" label="Entity Id Filter" default=".*" />
     </Platform.Preferences>
 
     <Platform.Link>

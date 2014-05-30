@@ -10,11 +10,13 @@
         currentData;
 
     var create_ngsi_connection = function create_ngsi_connection() {
-        ngsi = new NGSI.Connection(MashupPlatform.prefs.get('ngsi_server'));
+        ngsi = new NGSI.Connection(MashupPlatform.prefs.get('ngsi_server'), {
+            use_user_fiware_token: true,
+        });
     };
 
     var init = function init() {
-        layout = new StyledElements.BorderLayout();
+        layout = new StyledElements.BorderLayout({'class': 'loading'});
         var fields = {
             "entity" : {
                 label: 'Entity Id',
@@ -43,6 +45,7 @@
         form = new StyledElements.Form(fields, {cancelButton: false});
         form.addEventListener("submit", updateEntity);
         form.fieldInterfaces.entity.inputElement.addEventListener('change', onEntityChange);
+        form.fieldInterfaces.attribute.inputElement.addEventListener('change', onAttributeChange);
         layout.getCenterContainer().appendChild(form);
 
         layout.insertInto(document.body);
@@ -52,23 +55,39 @@
     };
 
     var onEntityChange = function onEntityChange(select) {
-        var attributes = Object.keys(currentData[select.getValue()]);
+        var attribute_values = currentData[select.getValue()];
+        var attributes = Object.keys(attribute_values);
+        var old_attribute = form.fieldInterfaces.attribute.inputElement.getValue();
         var entries = [];
 
         for (var i = 0; i < attributes.length; i++) {
-            if (['id', 'type', 'TimeInstant'].indexOf(attributes[i]) === -1) {
+            if (['id', 'type'].indexOf(attributes[i]) === -1) {
                 entries.push({value: attributes[i]});
             }
         }
 
         form.fieldInterfaces.attribute.inputElement.clear();
         form.fieldInterfaces.attribute.inputElement.addEntries(entries);
+        if (attributes.indexOf(old_attribute) !== -1) {
+            form.fieldInterfaces.attribute.inputElement.setValue(old_attribute);
+        }
+        onAttributeChange(form.fieldInterfaces.attribute.inputElement);
+    };
+
+    var onAttributeChange = function onAttributeChange(select) {
+        var entity = form.fieldInterfaces.entity.inputElement.getValue();
+        var attribute_values = currentData[entity];
+        var attribute = form.fieldInterfaces.attribute.inputElement.getValue();
+
+        form.fieldInterfaces.value.inputElement.setValue(attribute_values[attribute]);
     };
 
     var doQuery = function doQuery() {
+        layout.disable();
+
         ngsi.query([{
                isPattern: true,
-               id: '.*'
+               id: MashupPlatform.prefs.get('entity_id_pattern')
            }],
            null,
            {
@@ -89,6 +108,8 @@
         form.fieldInterfaces['entity'].inputElement.clear();
         form.fieldInterfaces['entity'].inputElement.addEntries(entries);
         onEntityChange(form.fieldInterfaces.entity.inputElement);
+
+        layout.enable();
     };
 
     var updateEntity = function updateEntity(form, data) {
@@ -125,8 +146,10 @@
 
     MashupPlatform.prefs.registerCallback(function (new_values) {
         if ('ngsi_server' in new_values) {
-            create_ngsi_connection.call(this);
+            create_ngsi_connection();
         }
+
+        doQuery();
     }.bind(this));
 
     MashupPlatform.widget.context.registerCallback(function (newValues) {
