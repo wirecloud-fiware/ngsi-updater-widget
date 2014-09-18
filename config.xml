@@ -1,31 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Template xmlns="http://wirecloud.conwet.fi.upm.es/ns/template#">
-    <Catalog.ResourceDescription>
-        <Vendor>CoNWeT</Vendor>
-        <Name>ngsi-updater</Name>
-        <DisplayName>NGSI Updater</DisplayName>
-        <Author>aarranz</Author>
-        <Version>2.99</Version>
-        <Mail>aarranz@conwet.com</Mail>
-        <Description>Generic widget that let you browse and update the NGSI entities hosted in a particular Orion Context Broker instance. This widget is meant to be useful for developing and its target is not end user.</Description>
-        <ImageURI>images/catalogue.png</ImageURI>
-        <iPhoneImageURI>images/catalogue.png</iPhoneImageURI>
-        <WikiURI>https://github.com/wirecloud-fiware/ngsi-updater</WikiURI>
-
-        <Requirements>
-            <Feature name="NGSI"/>
-        </Requirements>
-
-    </Catalog.ResourceDescription>
-
-    <Platform.Preferences>
-        <Preference name="ngsi_server" type="text" description="NGSI Server where the lamp post info is located" label="NGSI Server" default="http://orion.lab.fi-ware.eu:10026/" />
-        <Preference name="entity_id_pattern" type="text" description="Id parttern of the entities to monitorize on the Orion Context Broker server" label="Entity Id Filter" default=".*" />
-    </Platform.Preferences>
-
-    <Platform.Link>
-        <XHTML href="index.html" contenttype="application/xhtml+xml" cacheable="true" use-platform-style="true"/>
-    </Platform.Link>
-
-    <Platform.Rendering width="5" height="24"/>
-</Template>
+<?xml version='1.0' encoding='UTF-8'?>
+<widget xmlns="http://wirecloud.conwet.fi.upm.es/ns/macdescription/1" vendor="CoNWeT" name="ngsi-updater" version="3.0">
+    <details>
+        <title>NGSI Updater</title>
+        <authors>Álvaro Arranz García &lt;aarranz@conwet.com&gt;</authors>
+        <homepage>https://github.com/wirecloud-fiware/ngsi-updater</homepage>
+        <email>aarranz@conwet.com</email>
+        <image>images/catalogue.png</image>
+        <smartphoneimage>images/catalogue.png</smartphoneimage>
+        <description>Introspect and update attributes of entitites stored in a Orion Context Broker Server</description>
+        <longdescription>DESCRIPTION.md</longdescription>
+        <doc>https://github.com/wirecloud-fiware/ngsi-updater</doc>
+    </details>
+    <requirements>
+        <feature name="NGSI"/>
+    </requirements>
+    <preferences>
+        <preference name="ngsi_server" type="text" label="NGSI Server" description="NGSI Server where the lamp post info is located" default="http://orion.lab.fi-ware.eu:10026/"/>
+        <preference name="entity_id_pattern" type="text" label="Entity Id Filter" description="Id parttern of the entities to monitorize on the Orion Context Broker server" default=".*"/>
+    </preferences>
+    <wiring/>
+    <contents src="index.html" useplatformstyle="true"/>
+    <rendering width="5" height="24"/>
+</widget>
