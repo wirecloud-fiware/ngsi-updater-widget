@@ -10,6 +10,7 @@
         <description>Introspect and update attributes of entitites stored in a Orion Context Broker Server</description>
         <longdescription>DESCRIPTION.md</longdescription>
         <doc>https://github.com/wirecloud-fiware/ngsi-updater</doc>
+        <changelog>doc/changelog.md</changelog>
     </details>
     <requirements>
         <feature name="NGSI"/>
