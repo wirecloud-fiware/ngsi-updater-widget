@@ -7,7 +7,9 @@
     var layout,
         ngsi,
         form,
-        currentData;
+        currentData,
+        error,
+        info;
 
     var create_ngsi_connection = function create_ngsi_connection() {
         ngsi = new NGSI.Connection(MashupPlatform.prefs.get('ngsi_server'), {
@@ -49,10 +51,40 @@
         layout.getCenterContainer().appendChild(form);
 
         layout.insertInto(document.body);
+
+        //Create the error div
+        error = document.createElement('div');
+        error.setAttribute('class', 'alert alert-danger div_spaced');
+        layout.getCenterContainer().appendChild(error);
+
+        //Create the warn div
+        info = document.createElement('div');
+        info.setAttribute('class', 'alert alert-success div_spaced');
+        layout.getCenterContainer().appendChild(info);
+
+        hiddeStautsDivs();
+
         layout.repaint();
         create_ngsi_connection();
         doQuery();
     };
+
+    var fail = function fail(msg) {
+        error.innerHTML = msg;
+        error.classList.remove('hidden');
+        info.classList.add('hidden');
+    }
+
+    var complete = function complete(msg) {
+        info.innerHTML = msg ? msg : 'Complete!';
+        error.classList.add('hidden');
+        info.classList.remove('hidden');
+    }
+
+    var hiddeStautsDivs = function hiddeStautsDivs() {
+        info.classList.add('hidden');
+        error.classList.add('hidden');
+    }
 
     var onEntityChange = function onEntityChange(select) {
         var attribute_values = currentData[select.getValue()];
@@ -83,7 +115,8 @@
     };
 
     var doQuery = function doQuery() {
-        layout.disable();
+        form.disable();
+        hiddeStautsDivs();
 
         ngsi.query([{
                isPattern: true,
@@ -92,7 +125,8 @@
            null,
            {
               flat: true,
-              onSuccess: onQuerySuccess
+              onSuccess: onQuerySuccess,
+              onFailure: onQueryFail
            }
         );
     };
@@ -109,10 +143,18 @@
         form.fieldInterfaces['entity'].inputElement.addEntries(entries);
         onEntityChange(form.fieldInterfaces.entity.inputElement);
 
-        layout.enable();
+        form.enable();
     };
 
+    var onQueryFail = function onQueryFail(e) {
+        form.disable();
+        fail('Fail querying the server: ' + e);
+    }
+
     var updateEntity = function updateEntity(form, data) {
+        form.disable();
+        hiddeStautsDivs();
+
         var attributes =  [{
                 'name': data.attribute,
                 'contextValue': data.value
@@ -132,16 +174,19 @@
                 }
             ], {
                 onSuccess: onUpdateAttributesSuccess,
-                onFailure: function (e) {
-                    document.getElementById('update_context_update').textContent = 'Fail';
-                    fail();
-                }
+                onFailure: onUpdateAttributesFail
             }
         );
     };
 
+    var onUpdateAttributesFail = function onUpdateAttributesFail(e) {
+        form.enable();
+        fail('Fail updating Attribute: ' + e);
+    }
+
     var onUpdateAttributesSuccess = function onUpdateAttributesSuccess() {
         form.enable();
+        complete('Attribute updated correctly');
     };
 
     MashupPlatform.prefs.registerCallback(function (new_values) {
