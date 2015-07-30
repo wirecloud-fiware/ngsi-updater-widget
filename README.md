@@ -49,8 +49,6 @@ Settings and Usage
 
 - **NGSI server URL:** URL of the Orion Context Broker to use for retrieving
   entity information.
-- **NGSI proxy URL:** URL of the Orion Context Broker proxy to use for receiving
-  notifications about changes.
 - **Use the FIWARE credentials of the user:** Use the FIWARE credentials of the
   user logged into WireCloud. Take into account this option cannot be enabled if
   you want to use this widget in a public workspace as anonoymous users doesn't
@@ -66,18 +64,6 @@ Settings and Usage
   filtering entities from the Orion Context broker. This field cannot be empty.
 - **Id pattern:** Id pattern for filtering entities. This preference can be
   empty, in that case, entities won't be filtered by id.
-- **Monitored NGSI Attributes:** Attributes to monitor for updates. Currently,
-  the Orion Context Broker requires a list of attributes to monitor for changes,
-  so this field cannot be empty.
-
-**NOTE** If you are using a custom instance of the Orion Context Broker, take
-into account that by default Orion doesn't support sending notifications to
-https endpoints. In those cases you can make use of a NGSI available through
-http at (http://ngsiproxy.lab.fiware.org) instead of using the default one that
-uses https (https://ngsiproxy.lab.fiware.org). Anyway, it is very recommended
-to enable the https support (see this
-[link](http://stackoverflow.com/questions/23338154/orion-context-broker-https-for-subscribers)
-for more info about this matter).
 
 ### Wiring
 
