@@ -17,6 +17,7 @@
     </requirements>
     <preferences>
         <preference name="ngsi_server" type="text" label="NGSI Server" description="NGSI Server where the lamp post info is located" default="http://orion.lab.fiware.org:1026/"/>
+        <preference name="entity_types" type="text" label="NGSI entity types" description="A comma separated list of entity types to use for filtering entities from the Orion Context broker. This field cannot be empty." default=""/>
         <preference name="entity_id_pattern" type="text" label="Entity Id Filter" description="Id parttern of the entities to monitorize on the Orion Context Broker server" default=".*"/>
     </preferences>
     <wiring/>

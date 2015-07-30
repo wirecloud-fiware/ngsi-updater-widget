@@ -88,6 +88,11 @@
 
     var onEntityChange = function onEntityChange(select) {
         var attribute_values = currentData[select.getValue()];
+
+        if (attribute_values == null) {
+            attribute_values = {};
+        }
+
         var attributes = Object.keys(attribute_values);
         var old_attribute = form.fieldInterfaces.attribute.inputElement.getValue();
         var entries = [];
@@ -118,16 +123,25 @@
         form.disable();
         hiddeStautsDivs();
 
-        ngsi.query([{
-               isPattern: true,
-               id: MashupPlatform.prefs.get('entity_id_pattern')
-           }],
-           null,
-           {
-              flat: true,
-              onSuccess: onQuerySuccess,
-              onFailure: onQueryFail
-           }
+        var id = {
+            isPattern: true,
+            id: MashupPlatform.prefs.get('entity_id_pattern')
+        };
+
+        var type = MashupPlatform.prefs.get('entity_types');
+        if (type !== '') {
+            id.type = type;
+        }
+
+        ngsi.query([
+                id
+            ],
+            null,
+            {
+                flat: true,
+                onSuccess: onQuerySuccess,
+                onFailure: onQueryFail
+            }
         );
     };
 
