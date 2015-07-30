@@ -16,7 +16,7 @@
         <feature name="NGSI"/>
     </requirements>
     <preferences>
-        <preference name="ngsi_server" type="text" label="NGSI Server" description="NGSI Server where the lamp post info is located" default="http://orion.lab.fi-ware.eu:10026/"/>
+        <preference name="ngsi_server" type="text" label="NGSI Server" description="NGSI Server where the lamp post info is located" default="http://orion.lab.fiware.org:1026/"/>
         <preference name="entity_id_pattern" type="text" label="Entity Id Filter" description="Id parttern of the entities to monitorize on the Orion Context Broker server" default=".*"/>
     </preferences>
     <wiring/>
