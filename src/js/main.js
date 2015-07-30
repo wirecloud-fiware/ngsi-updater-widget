@@ -237,7 +237,7 @@
     }.bind(this));
 
     MashupPlatform.widget.context.registerCallback(function (newValues) {
-        if (layout && "heightInPixels" in newValues) {
+        if (layout && ("heightInPixels" in newValues || "widthInPixels" in newValues)) {
             layout.repaint();
         }
     }.bind(this));
