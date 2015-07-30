@@ -1,7 +1,7 @@
-/*global MashupPlatform StyledElements NGSI*/
+/* global MashupPlatform, StyledElements, NGSI */
 
 (function () {
- 
+
     "use strict";
 
     var layout,
@@ -20,7 +20,7 @@
     var init = function init() {
         layout = new StyledElements.BorderLayout({'class': 'loading'});
         var fields = {
-            "entity" : {
+            "entity": {
                 label: 'Entity Id',
                 type: 'select',
                 initialEntries: [{
@@ -29,7 +29,7 @@
                 }],
                 required: true
             },
-            "attribute" : {
+            "attribute": {
                 label: 'Attribute Name',
                 type: 'select',
                 initialEntries: [{
@@ -38,7 +38,7 @@
                 }],
                 required: true
             },
-            "value" : {
+            "value": {
                 label: 'Attribute Value',
                 type: 'text',
                 required: true
@@ -73,18 +73,18 @@
         error.innerHTML = msg;
         error.classList.remove('hidden');
         info.classList.add('hidden');
-    }
+    };
 
     var complete = function complete(msg) {
         info.innerHTML = msg ? msg : 'Complete!';
         error.classList.add('hidden');
         info.classList.remove('hidden');
-    }
+    };
 
     var hiddeStautsDivs = function hiddeStautsDivs() {
         info.classList.add('hidden');
         error.classList.add('hidden');
-    }
+    };
 
     var onEntityChange = function onEntityChange(select) {
         var attribute_values = currentData[select.getValue()];
@@ -153,8 +153,8 @@
             entries.push({value: key});
         }
 
-        form.fieldInterfaces['entity'].inputElement.clear();
-        form.fieldInterfaces['entity'].inputElement.addEntries(entries);
+        form.fieldInterfaces.entity.inputElement.clear();
+        form.fieldInterfaces.entity.inputElement.addEntries(entries);
         onEntityChange(form.fieldInterfaces.entity.inputElement);
 
         form.enable();
@@ -163,7 +163,7 @@
     var onQueryFail = function onQueryFail(e) {
         form.disable();
         fail('Fail querying the server: ' + e);
-    }
+    };
 
     var updateEntity = function updateEntity(form, data) {
         form.disable();
@@ -196,7 +196,7 @@
     var onUpdateAttributesFail = function onUpdateAttributesFail(e) {
         form.enable();
         fail('Fail updating Attribute: ' + e);
-    }
+    };
 
     var onUpdateAttributesSuccess = function onUpdateAttributesSuccess() {
         form.enable();
@@ -213,7 +213,7 @@
 
     MashupPlatform.widget.context.registerCallback(function (newValues) {
         if (layout && "heightInPixels" in newValues) {
-             layout.repaint();
+            layout.repaint();
         }
     }.bind(this));
 
