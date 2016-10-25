@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2015 CoNWeT Lab., Universidad Politécnica de Madrid
+ * Copyright (c) 2013-2016 CoNWeT Lab., Universidad Politécnica de Madrid
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,9 +31,9 @@
         var request_headers = {};
 
         if (MashupPlatform.prefs.get('use_owner_credentials')) {
-            request_headers['X-FI-WARE-OAuth-Token'] = 'true';
-            request_headers['X-FI-WARE-OAuth-Header-Name'] = 'X-Auth-Token';
-            request_headers['x-FI-WARE-OAuth-Source'] = 'workspaceowner';
+            request_headers['X-FIWARE-OAuth-Token'] = 'true';
+            request_headers['X-FIWARE-OAuth-Header-Name'] = 'X-Auth-Token';
+            request_headers['X-FIWARE-OAuth-Source'] = 'workspaceowner';
         }
 
         ngsi = new NGSI.Connection(MashupPlatform.prefs.get('ngsi_server'), {
